@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 本地环境 -->
+    <springProfile name="local">
+        <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <Pattern>%X{ip} %date %X{requestID} %-5level %logger{80} %L - %msg%n</Pattern>
+            </encoder>
+        </appender>
+
+        <root level="debug">
+            <appender-ref ref="consoleAppender" />
+        </root>
+    </springProfile>
+</configuration>
