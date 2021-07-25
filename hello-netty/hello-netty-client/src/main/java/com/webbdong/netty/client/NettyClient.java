@@ -2,7 +2,6 @@ package com.webbdong.netty.client;
 
 import com.webbdong.netty.client.handler.ClientInboundHandler1;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;

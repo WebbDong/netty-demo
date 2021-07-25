@@ -64,7 +64,9 @@ public class ServerInboundHandler1 extends ChannelInboundHandlerAdapter {
         String msg = "Hello Netty Client";
         ByteBuf buf = ctx.alloc().buffer();
         buf.writeBytes(msg.getBytes(StandardCharsets.UTF_8));
+        // ctx.writeAndFlush 事件会从当前handler流向头部
         ctx.writeAndFlush(buf);
+        // ctx.channel().writeAndFlush 事件会从pipeline尾部流向头部
 //        ctx.channel().writeAndFlush(Unpooled.copiedBuffer(msg.getBytes(StandardCharsets.UTF_8)));
         super.channelReadComplete(ctx);
     }

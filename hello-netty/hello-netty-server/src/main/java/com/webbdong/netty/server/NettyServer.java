@@ -4,6 +4,8 @@ import com.webbdong.netty.server.handler.ServerInboundHandler1;
 import com.webbdong.netty.server.handler.ServerInboundHandler2;
 import com.webbdong.netty.server.handler.ServerOutboundHandler1;
 import com.webbdong.netty.server.handler.ServerOutboundHandler2;
+import com.webbdong.netty.server.handler.SharableServerInboundHandler;
+import com.webbdong.netty.server.handler.SharableServerOutboundHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -52,6 +54,12 @@ public class NettyServer {
 
     private static class ServerChannelInitializer extends ChannelInitializer {
 
+        private static final SharableServerInboundHandler sharableServerInboundHandler
+                = new SharableServerInboundHandler();
+
+        private static final SharableServerOutboundHandler sharableServerOutboundHandler
+                = new SharableServerOutboundHandler();
+
         /**
          * initChannel 方法在每次客户端连接创建完成后为其初始化 handler 时执行
          */
@@ -59,11 +67,15 @@ public class NettyServer {
         protected void initChannel(Channel ch) throws Exception {
             // 向 pipeline 中添加自定义 handler
             // InboundHandler 执行顺序是顺序执行，OutboundHandler 执行顺序是逆序执行
+            // 使用 new 的方式创建 handler，每个客户端连接使用的都是新的 handler 实例
             ch.pipeline()
                     .addLast(new ServerOutboundHandler1())
                     .addLast(new ServerOutboundHandler2())
+                    .addLast(sharableServerOutboundHandler)
                     .addLast(new ServerInboundHandler1())
-                    .addLast(new ServerInboundHandler2());
+                    .addLast(new ServerInboundHandler2())
+                    .addLast(sharableServerInboundHandler)
+            ;
         }
         
     }
