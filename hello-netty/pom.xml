@@ -11,9 +11,11 @@
 
     <artifactId>hello-netty</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>hello-netty-server</module>
         <module>hello-netty-client</module>
+        <module>byte-buf-demo</module>
     </modules>
 
 </project>
