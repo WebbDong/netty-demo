@@ -1,6 +1,7 @@
 package com.webbdong.netty.client;
 
 import com.webbdong.netty.client.handler.ClientInboundHandler1;
+import com.webbdong.netty.client.handler.ClientSimpleInboundHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -36,7 +37,8 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new ClientInboundHandler1());
+                                    .addLast(new ClientInboundHandler1())
+                                    .addLast(new ClientSimpleInboundHandler());
                         }
                     });
             final ChannelFuture future = bootstrap.connect(host, port).sync();
