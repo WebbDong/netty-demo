@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.buffer.UnpooledDirectByteBuf;
 import io.netty.buffer.UnpooledHeapByteBuf;
+import io.netty.util.ByteProcessor;
 import io.netty.util.ReferenceCountUtil;
 
 import java.nio.charset.StandardCharsets;
@@ -24,7 +25,8 @@ public class ByteBufDemo {
 //        wrap();
 //        unpooledByteBuf();
 //        byteBufAllocator();
-        release();
+//        release();
+        other();
     }
 
     public static void read() {
@@ -253,6 +255,26 @@ public class ByteBufDemo {
         System.out.println(buf.toString(StandardCharsets.UTF_8));
 //        buf.release();
         ReferenceCountUtil.release(buf);
+    }
+
+    public static void other() {
+        ByteBuf buf1 = Unpooled.wrappedBuffer("Hello".getBytes(StandardCharsets.UTF_8));
+        // 切割出4个字节的 ByteBuf，调用了 readRetainedSlice 的 ByteBuf 会变更读索引
+        ByteBuf sliceBuf = buf1.readRetainedSlice(4);
+        System.out.println("sliceBuf = " + sliceBuf.toString(StandardCharsets.UTF_8));
+        System.out.println("buf1 = " + buf1.toString(StandardCharsets.UTF_8));
+
+        ByteBuf buf2 = Unpooled.wrappedBuffer("Ferrari".getBytes(StandardCharsets.UTF_8));
+        // 从头开始忽略掉3个字节
+        buf2.skipBytes(3);
+        System.out.println("buf2 = " + buf2.toString(StandardCharsets.UTF_8));
+
+        ByteBuf buf3 = Unpooled.wrappedBuffer("Lamborghini$".getBytes(StandardCharsets.UTF_8));
+        // 查找某个字节在 ByteBuf 中的索引位置
+        int index = buf3.forEachByte(new ByteProcessor.IndexOfProcessor((byte) '$'));
+        System.out.println("index = " + index);
+        System.out.println("buf3 = " + buf3.toString(StandardCharsets.UTF_8));
+        System.out.println((char) buf3.getByte(index));
     }
 
 }
