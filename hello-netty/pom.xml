@@ -17,6 +17,7 @@
         <module>hello-netty-client</module>
         <module>byte-buf-demo</module>
         <module>future-promise-demo</module>
+        <module>encoder-decoder-demo</module>
     </modules>
 
 </project>

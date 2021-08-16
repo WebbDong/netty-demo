@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>Future/Promise异步模型</description>
+    <description>一次编解码器示例</description>
 
-    <artifactId>future-promise-demo</artifactId>
+    <artifactId>encoder-decoder-demo</artifactId>
 
     <dependencies>
         <dependency>
@@ -28,6 +28,10 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 
