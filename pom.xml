@@ -11,6 +11,10 @@
 
     <modules>
         <module>hello-netty</module>
+        <module>byte-buf-demo</module>
+        <module>future-promise-demo</module>
+        <module>encoder-decoder-demo</module>
+        <module>codec-demo</module>
     </modules>
 
     <properties>
@@ -21,6 +25,8 @@
         <slf4j-api.version>1.7.32</slf4j-api.version>
         <logback.version>1.2.4</logback.version>
         <jackson.version>2.12.4</jackson.version>
+        <protobuf-java.version>3.17.3</protobuf-java.version>
+        <protostuff.version>1.7.4</protostuff.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +61,21 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-core</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-runtime</artifactId>
+                <version>${protostuff.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
