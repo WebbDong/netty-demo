@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.webbdong.codec.protobuf";
+option java_outer_classname = "MessageProto";
+
+message Message {
+  string id = 1;
+  string content = 2;
+}
