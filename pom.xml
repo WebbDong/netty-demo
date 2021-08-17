@@ -15,6 +15,7 @@
         <module>future-promise-demo</module>
         <module>encoder-decoder-demo</module>
         <module>codec-demo</module>
+        <module>keepavlie-idle-demo</module>
     </modules>
 
     <properties>
