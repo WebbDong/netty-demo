@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test netty websocket</title>
+    <script type="text/javascript">
+        let socket;
+        if (!window.WebSocket) {
+            window.WebSocket = window.MozWebSocket;
+        }
+        if (window.WebSocket) {
+            socket = new WebSocket('ws://localhost:20005/websocket');
+            socket.onmessage = function(event) {
+                let responseText = document.getElementById('responseText');
+                responseText.value = event.data;
+            };
+            socket.onopen = function(event) {
+                let responseText = document.getElementById('responseText');
+                responseText.value = '打开WebSocket服务器正常，浏览器支持 WebSocket！';
+            };
+            socket.onclose = function(event) {
+                let responseText = document.getElementById('responseText');
+                responseText.value = 'WebSocket 关闭！';
+            };
+        } else {
+            alert('抱歉，您的浏览器不支持WebSocket协议！');
+        }
+
+        function send(message) {
+            if (!window.WebSocket) {
+                return;
+            }
+            if (socket != null) {
+                socket.send(message);
+            } else {
+                alert('WebSocket连接没有建立成功，请刷新页面！');
+            }
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="return false;">
+        <input type="text" name="message" value="Netty WebSocket">
+        <br><br>
+        <input type="button" value="发送WebSocket请求" onclick="send(this.form.message.value)">
+        <hr color="blue"/>
+        <h3>服务端返回的应答消息</h3>
+        <textarea id="responseText" style="width:500px;height:300px;"></textarea>
+    </form>
+</body>
+</html>
