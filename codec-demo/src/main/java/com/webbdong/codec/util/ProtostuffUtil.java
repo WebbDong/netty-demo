@@ -4,6 +4,7 @@ import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -104,9 +105,9 @@ public class ProtostuffUtil {
 		byte[] protostuff = null;
 		try {
 			protostuff = ProtostuffIOUtil.toByteArray(t, schema, buffer);
-		} catch (Exception e){
+		} catch (Exception e) {
 			log.error("protostuff serialize error,{}",e.getMessage());
-		}finally {
+		} finally {
 			buffer.clear();
 		}
 		return protostuff;
@@ -121,12 +122,12 @@ public class ProtostuffUtil {
 	 * @return
 	 */
 	public static <T> T deserialize(byte[] data,Class<T> clazz) {
-		//判断是否经过包装
+		// 判断是否经过包装
 		if (WRAPPER_SET.contains(clazz)) {
 			SerializeDeserializeWrapper<T> wrapper = new SerializeDeserializeWrapper<T>();
 			ProtostuffIOUtil.mergeFrom(data,wrapper,RuntimeSchema.getSchema(SerializeDeserializeWrapper.class));
 			return wrapper.getData();
-		}else {
+		} else {
 			Schema<T> schema = RuntimeSchema.getSchema(clazz);
 			T newMessage = schema.newMessage();
 			ProtostuffIOUtil.mergeFrom(data,newMessage,schema);
@@ -134,23 +135,16 @@ public class ProtostuffUtil {
 		}
 	}
 	
-	
+	@Data
 	private static class SerializeDeserializeWrapper<T> {
-		//被包装的数据
+		// 被包装的数据
 		T data;
 		
-		public static <T> SerializeDeserializeWrapper<T> build(T data){
+		public static <T> SerializeDeserializeWrapper<T> build(T data) {
 			SerializeDeserializeWrapper<T> wrapper = new SerializeDeserializeWrapper<T>();
 			wrapper.setData(data);
 			return wrapper;
 		}
-		
-		public T getData() {
-			return data;
-		}
-		
-		public void setData(T data) {
-			this.data = data;
-		}
 	}
+
 }
