@@ -16,6 +16,7 @@
         <module>encoder-decoder-demo</module>
         <module>codec-demo</module>
         <module>keepavlie-idle-demo</module>
+        <module>hrpc</module>
     </modules>
 
     <properties>
@@ -28,10 +29,27 @@
         <jackson.version>2.12.4</jackson.version>
         <protobuf-java.version>3.17.3</protobuf-java.version>
         <protostuff.version>1.7.4</protostuff.version>
+        <zkclient.version>0.1</zkclient.version>
+        <objenesis.version>3.2</objenesis.version>
+        <slf4j.log4j.version>1.7.25</slf4j.log4j.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <commons.collections.version>3.2.2</commons.collections.version>
+        <commons.lang3.version>3.12.0</commons.lang3.version>
+        <beanutils.version>1.9.4</beanutils.version>
+        <cglib.version>3.3.0</cglib.version>
+        <reflections.version>0.9.12</reflections.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -77,6 +95,65 @@
                 <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
+            </dependency>
+            <!-- zookeeper 客户端 -->
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient.version}</version>
+            </dependency>
+            <!-- 实例化框架 -->
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
+            </dependency>
+            <!-- 日志组件依赖 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.log4j.version}</version>
+            </dependency>
+            <!-- Google Guava 核心扩展库-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- Apache 集合扩展 -->
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons.collections.version}</version>
+            </dependency>
+            <!-- Apache lang 包扩展 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
+            </dependency>
+            <!-- Apache BeanUtils -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${beanutils.version}</version>
+            </dependency>
+            <!-- cglib动态代理 -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+            <!-- Java元数据分析反射 -->
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
