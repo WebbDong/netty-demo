@@ -1,5 +1,6 @@
 package com.webbdong.rpc.core.spring;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +17,9 @@ import java.util.Map;
 @Component
 public class SpringBeanFactory implements ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext;
 
+    @SneakyThrows
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -29,7 +31,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
      * @param <T>
      * @return
      */
-    public <T> T getBean(Class<T> cls) {
+    public static <T> T getBean(Class<T> cls) {
         return applicationContext.getBean(cls);
     }
 
@@ -38,7 +40,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
      * @param beanName
      * @return
      */
-    public Object getBean(String beanName) {
+    public static Object getBean(String beanName) {
         return applicationContext.getBean(beanName);
     }
 
@@ -47,7 +49,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
      * @param annotationClass
      * @return
      */
-    public Map<String, Object> getBeanListByAnnotationClass(Class<? extends Annotation> annotationClass) {
+    public static Map<String, Object> getBeanListByAnnotationClass(Class<? extends Annotation> annotationClass) {
         return applicationContext.getBeansWithAnnotation(annotationClass);
     }
 
@@ -55,7 +57,7 @@ public class SpringBeanFactory implements ApplicationContextAware {
      * 向容器注册单例bean
      * @param bean
      */
-    public void registerSingleton(Object bean) {
+    public static void registerSingleton(Object bean) {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
         // 让bean完成Spring初始化过程中所有增强器检验，只是不重新创建bean
         beanFactory.applyBeanPostProcessorsAfterInitialization(bean, bean.getClass().getName());

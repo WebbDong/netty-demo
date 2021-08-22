@@ -26,7 +26,6 @@
         <lombok.version>1.18.20</lombok.version>
         <slf4j-api.version>1.7.32</slf4j-api.version>
         <logback.version>1.2.4</logback.version>
-        <jackson.version>2.12.4</jackson.version>
         <protobuf-java.version>3.17.3</protobuf-java.version>
         <protostuff.version>1.7.4</protostuff.version>
         <zkclient.version>0.1</zkclient.version>
@@ -38,7 +37,7 @@
         <beanutils.version>1.9.4</beanutils.version>
         <cglib.version>3.3.0</cglib.version>
         <reflections.version>0.9.12</reflections.version>
-        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.2</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -75,11 +74,6 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty-all.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>

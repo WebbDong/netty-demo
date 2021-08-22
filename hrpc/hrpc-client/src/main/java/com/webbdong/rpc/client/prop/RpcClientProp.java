@@ -21,9 +21,6 @@ public class RpcClientProp {
     @Value("${server.port}")
     private String znsClientPort;
 
-    @Value("${rpc.client.api.package}")
-    private String rpcClientApiPackage;
-
     @Value("${rpc.cluster.strategy}")
     private String rpcClientClusterStrategy;
 

@@ -1,5 +1,6 @@
 package com.webbdong.rpc.core.annotation;
 
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Documented;
@@ -19,6 +20,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface RpcService {
 
+    @AliasFor(annotation = Component.class)
     String value() default "";
 
     /**

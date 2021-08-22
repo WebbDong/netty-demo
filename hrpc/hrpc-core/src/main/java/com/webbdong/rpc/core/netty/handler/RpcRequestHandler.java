@@ -9,6 +9,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -17,6 +18,7 @@ import java.lang.reflect.Method;
  * @author Webb Dong
  * @date 2021-08-20 12:35 AM
  */
+@Component
 @RequiredArgsConstructor(onConstructor_={@Autowired})
 @ChannelHandler.Sharable
 @Slf4j
@@ -25,7 +27,7 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<RpcRequest> {
     private final SpringBeanFactory springBeanFactory;
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, RpcRequest request) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, RpcRequest request) {
         log.info("rpc服务端接收到的请求为:{}", request);
         RpcResponse response = new RpcResponse();
         try {
@@ -40,7 +42,7 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<RpcRequest> {
             response.setCause(e);
             log.error("rpc server invoke error", e);
         } finally {
-            log.info("服务端执行成功，响应为:{}", response);
+            log.info("服务端响应为:{}", response);
             ctx.channel().writeAndFlush(response);
         }
     }

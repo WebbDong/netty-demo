@@ -1,0 +1,17 @@
+server:
+  port: 8080
+logging:
+  config: classpath:logback-spring.xml
+spring:
+  application:
+    name: product-service
+
+rpc:
+  client:
+    zk:
+      root: /rpc
+      addr: localhost:12181
+      switch: true
+      timeout: 10000
+  cluster:
+    strategy: random

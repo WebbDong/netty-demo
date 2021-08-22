@@ -5,7 +5,6 @@ import com.webbdong.rpc.core.netty.codec.FrameEncoder;
 import com.webbdong.rpc.core.netty.codec.RpcRequestDecoder;
 import com.webbdong.rpc.core.netty.codec.RpcResponseEncoder;
 import com.webbdong.rpc.core.netty.handler.RpcRequestHandler;
-import com.webbdong.rpc.core.spring.SpringBeanFactory;
 import com.webbdong.rpc.server.boot.RpcServer;
 import com.webbdong.rpc.server.prop.RpcServerProp;
 import io.netty.bootstrap.ServerBootstrap;
@@ -21,6 +20,7 @@ import io.netty.util.NettyRuntime;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import io.netty.util.concurrent.UnorderedThreadPoolEventExecutor;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,8 +37,9 @@ public class NettyServer implements RpcServer {
 
     private final RpcServerProp prop;
 
-    private final SpringBeanFactory springBeanFactory;
+    private final RpcRequestHandler rpcRequestHandler;
 
+    @SneakyThrows
     @Override
     public void start() {
         EventLoopGroup boss = new NioEventLoopGroup(1, new DefaultThreadFactory("boss"));
@@ -47,7 +48,6 @@ public class NettyServer implements RpcServer {
         UnorderedThreadPoolEventExecutor business = new UnorderedThreadPoolEventExecutor(
                 NettyRuntime.availableProcessors() * 2, new DefaultThreadFactory("business"));
         ServerBootstrap serverBootstrap = new ServerBootstrap();
-        RpcRequestHandler rpcRequestHandler = new RpcRequestHandler(springBeanFactory);
         try {
             serverBootstrap.group(boss, worker)
                     .channel(NioServerSocketChannel.class)

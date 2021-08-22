@@ -8,13 +8,13 @@ spring:
 
 rpc:
   server:
-      zk:
-        #根节点
-        root: /rpc
-        #Zookeeper服务地址
-        addr: localhost:12181
-        #链接超时时间
-        timeout: 10000
+    zk:
+      #根节点
+      root: /rpc
+      #Zookeeper服务地址
+      addr: localhost:12181
+      #链接超时时间
+      timeout: 10000
   #Rpc通信端口->Netty端口
   network:
-      port: 28889
+    port: 28889
