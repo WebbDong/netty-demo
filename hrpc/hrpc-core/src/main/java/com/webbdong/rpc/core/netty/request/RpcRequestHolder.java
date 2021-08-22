@@ -17,7 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class RpcRequestHolder {
 
+    /**
+     * 维护requestId与RequestPromise的映射关系
+     */
     private static Map<String, RequestPromise> requestPromiseMap = new ConcurrentHashMap<>();
+
+    /**
+     * 维护客户端对所有服务节点的映射,达到重复利用已创建好的 channel key:serverip:port
+     */
+    private static Map<String,ChannelMapping> channelMappingMap = new ConcurrentHashMap<>();
 
     /**
      * 向容器中添加requestPromise
@@ -44,11 +52,6 @@ public class RpcRequestHolder {
     public static void removeRequestPromise(String requestId) {
         requestPromiseMap.remove(requestId);
     }
-
-
-    //维护客户端对所有服务节点的映射,达到重复利用已创建好的channel key:serverip:port
-    private static Map<String,ChannelMapping> channelMappingMap = new ConcurrentHashMap<>();
-
 
     /**
      * 判断客户端是否已存在该服务节点的连接
