@@ -26,6 +26,9 @@ public class ServiceProvider {
 
     private long timeout;
 
+    /**
+     * 权重
+     */
     private int weight;
 
 }

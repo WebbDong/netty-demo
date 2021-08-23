@@ -1,5 +1,6 @@
 package com.webbdong.rpc.core.netty.request;
 
+import com.webbdong.rpc.core.model.ChannelMapping;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class RpcRequestHolder {
     /**
      * 维护客户端对所有服务节点的映射,达到重复利用已创建好的 channel key:serverip:port
      */
-    private static Map<String,ChannelMapping> channelMappingMap = new ConcurrentHashMap<>();
+    private static Map<String, ChannelMapping> channelMappingMap = new ConcurrentHashMap<>();
 
     /**
      * 向容器中添加requestPromise

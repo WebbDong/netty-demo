@@ -1,5 +1,6 @@
 package com.webbdong.rpc.client.net;
 
+import com.webbdong.rpc.client.cluster.StrategyProvider;
 import com.webbdong.rpc.core.cache.ServiceProviderCache;
 import com.webbdong.rpc.core.enums.StatusEnum;
 import com.webbdong.rpc.core.exception.RpcException;
@@ -21,9 +22,16 @@ public abstract class BaseRpcNetworkManager implements RpcNetworkManager {
 
     private ServiceProviderCache serviceProviderCache;
 
+    private StrategyProvider strategyProvider;
+
     @Autowired
     public void setServiceProviderCache(ServiceProviderCache serviceProviderCache) {
         this.serviceProviderCache = serviceProviderCache;
+    }
+
+    @Autowired
+    public void setStrategyProvider(StrategyProvider strategyProvider) {
+        this.strategyProvider = strategyProvider;
     }
 
     public RpcResponse sendRequest(RpcRequest request) {
@@ -32,7 +40,8 @@ public abstract class BaseRpcNetworkManager implements RpcNetworkManager {
             log.info("客户端没有发现可用发服务节点");
             throw new RpcException(StatusEnum.NOT_FOUND_SERVICE_PROVIDER);
         }
-        ServiceProvider serviceProvider = serviceProviders.get(0);
+        // 负载均衡
+        ServiceProvider serviceProvider = strategyProvider.getStrategy().select(serviceProviders);
         if (serviceProvider == null) {
             throw new RpcException(StatusEnum.NOT_FOUND_SERVICE_PROVIDER);
         }
