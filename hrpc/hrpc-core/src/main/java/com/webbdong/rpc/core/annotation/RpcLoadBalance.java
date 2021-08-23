@@ -1,5 +1,7 @@
 package com.webbdong.rpc.core.annotation;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,6 +13,7 @@ import java.lang.annotation.Target;
  * @author Webb Dong
  * @date 2021-08-19 12:59 AM
  */
+@Component
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

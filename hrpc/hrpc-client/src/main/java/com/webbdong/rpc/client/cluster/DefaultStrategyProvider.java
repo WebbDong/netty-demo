@@ -31,9 +31,13 @@ public class DefaultStrategyProvider implements StrategyProvider, ApplicationCon
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Map<String, Object> beansMap = applicationContext.getBeansWithAnnotation(RpcLoadBalance.class);
+        String rpcClientClusterStrategy = rpcClientProp.getRpcClientClusterStrategy();
+        if (rpcClientClusterStrategy == null) {
+            rpcClientClusterStrategy = "random";
+        }
         for (Object bean : beansMap.values()) {
             RpcLoadBalance rpcLoadBalance = bean.getClass().getAnnotation(RpcLoadBalance.class);
-            if (rpcLoadBalance.strategy().equals(rpcClientProp.getRpcClientClusterStrategy())) {
+            if (rpcLoadBalance.strategy().equals(rpcClientClusterStrategy)) {
                 strategy = (LoadBalanceStrategy) bean;
                 break;
             }
