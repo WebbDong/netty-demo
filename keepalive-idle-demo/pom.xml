@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <description>Netty Keepalive Idle</description>
 
-    <artifactId>keepavlie-idle-demo</artifactId>
+    <artifactId>keepalive-idle-demo</artifactId>
 
     <dependencies>
         <dependency>
